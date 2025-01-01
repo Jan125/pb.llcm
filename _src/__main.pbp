@@ -7,20 +7,24 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-01-01 20:22" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2025-01-01 22:08" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="_main.pb">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="d8ed2de2dc8964654a5c8634215756b5"/>
+      <fingerprint md5="c92434c54f2466e465f75a96d7059ce2"/>
     </file>
     <file name="_test.pb">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="d8ed2de2dc8964654a5c8634215756b5"/>
+      <fingerprint md5="1c3bdce27ee826b13dac814c3aaf6228"/>
+    </file>
+    <file name="include\consoleutil.pbi">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="++"/>
+      <fingerprint md5="c0d0ce99bb2b038b04d7f04c10a0e5a1"/>
     </file>
     <file name="llcm.pbi">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="751d4e8278a260be10da88e6a2426fba"/>
+      <fingerprint md5="7c6745f3b0f9ed14ff812624a838fb67"/>
     </file>
   </section>
   <section name="targets">
@@ -30,7 +34,7 @@
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <options unicode="1" thread="1" debug="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="98"/>
+      <compilecount enable="1" value="118"/>
     </target>
     <target name="EXEw86" enabled="1" default="0">
       <inputfile value="_main.pb"/>
