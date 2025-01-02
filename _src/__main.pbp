@@ -2,12 +2,12 @@
 
 <project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.46 LTS (Windows - x86)">
   <section name="config">
-    <options closefiles="1" openmode="0" name="LisP Lexer, Compiler, and More"/>
+    <options closefiles="1" openmode="0" name="LisP Lexer, Compiler, &amp; More"/>
   </section>
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-01-01 22:08" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2025-01-02 07:14" user="Dino" host="HUSKLET"/>
   </section>
   <section name="files">
     <file name="_main.pb">
@@ -43,8 +43,8 @@
       <executable value="..\_bin\llcm.exe"/>
       <options unicode="1" thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="6"/>
-      <buildcount enable="1" value="6"/>
+      <compilecount enable="1" value="7"/>
+      <buildcount enable="1" value="7"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -53,7 +53,7 @@
         <field3 value="LLCM"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, and More"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More"/>
         <field7 value="llcm"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
@@ -70,8 +70,8 @@
       <executable value="..\_bin\llcma.exe"/>
       <options thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="6"/>
-      <buildcount enable="1" value="6"/>
+      <compilecount enable="1" value="7"/>
+      <buildcount enable="1" value="7"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -80,7 +80,7 @@
         <field3 value="LLCMa"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, and More (ASCII)"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (ASCII)"/>
         <field7 value="llcma"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
@@ -97,8 +97,8 @@
       <executable value="..\_bin\llcm64.exe"/>
       <options unicode="1" thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="6"/>
-      <buildcount enable="1" value="6"/>
+      <compilecount enable="1" value="7"/>
+      <buildcount enable="1" value="7"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -107,7 +107,7 @@
         <field3 value="LLCM64"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, and More (x64)"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (x64)"/>
         <field7 value="llcm64"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
@@ -124,8 +124,8 @@
       <executable value="..\_bin\llcma64.exe"/>
       <options thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="6"/>
-      <buildcount enable="1" value="6"/>
+      <compilecount enable="1" value="7"/>
+      <buildcount enable="1" value="7"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -134,7 +134,7 @@
         <field3 value="LLCMa64"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, and More (x64) (ASCII)"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (x64) (ASCII)"/>
         <field7 value="llcma64"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
