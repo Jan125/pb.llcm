@@ -20,10 +20,27 @@ Procedure UnitTestSuccess(Name.s, Query.s, Expected.s)
   ProcedureReturn
 EndProcedure
 
+Procedure.s EntireFileContent(Name.s, Flags.i = 0)
+  Protected File.i
+  Protected Output.s
+  
+  Flags & (#PB_Ascii | #PB_UTF8 | #PB_Unicode)
+  
+  File = ReadFile(#PB_Any, Name, #PB_File_SharedRead | #PB_File_SharedWrite | Flags)
+  If File
+    Output = ReadString(File, #PB_File_IgnoreEOL | Flags)
+    CloseFile(File)
+    ProcedureReturn Output
+  EndIf
+  
+  ProcedureReturn ""
+EndProcedure
+
+
 OpenConsole()
 
 Define String.s
-String = LLCM::Compile("0x,")
+String = LLCM::Compile(EntireFileContent("C:\Users\Dino\Documents\PureBasic\PNBpaddlesandball\pnbpaddlesandball.pnb"))
 If PeekS(@String, 14) = "Compiler Error"
   WriteError(String)
 Else

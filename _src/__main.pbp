@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-01-02 07:14" user="Dino" host="HUSKLET"/>
+    <lastopen date="2025-05-28 14:23" user="Dino" host="HUSKLET"/>
   </section>
   <section name="files">
     <file name="_main.pb">
@@ -16,15 +16,15 @@
     </file>
     <file name="_test.pb">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="1c3bdce27ee826b13dac814c3aaf6228"/>
+      <fingerprint md5="e4ac09bfc3b516c13adfa5b0f8253668"/>
     </file>
     <file name="include\consoleutil.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="++"/>
-      <fingerprint md5="c0d0ce99bb2b038b04d7f04c10a0e5a1"/>
+      <fingerprint md5="a1739233bcfac07dd38beeb2915c4a43"/>
     </file>
     <file name="llcm.pbi">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="7c6745f3b0f9ed14ff812624a838fb67"/>
+      <fingerprint md5="824ef1c6833a04775201de3c91206037"/>
     </file>
   </section>
   <section name="targets">
@@ -34,7 +34,7 @@
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <options unicode="1" thread="1" debug="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="118"/>
+      <compilecount enable="1" value="210"/>
     </target>
     <target name="EXEw86" enabled="1" default="0">
       <inputfile value="_main.pb"/>
@@ -43,8 +43,8 @@
       <executable value="..\_bin\llcm.exe"/>
       <options unicode="1" thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="7"/>
-      <buildcount enable="1" value="7"/>
+      <compilecount enable="1" value="12"/>
+      <buildcount enable="1" value="12"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -70,8 +70,8 @@
       <executable value="..\_bin\llcma.exe"/>
       <options thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="7"/>
-      <buildcount enable="1" value="7"/>
+      <compilecount enable="1" value="12"/>
+      <buildcount enable="1" value="12"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -97,8 +97,8 @@
       <executable value="..\_bin\llcm64.exe"/>
       <options unicode="1" thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="7"/>
-      <buildcount enable="1" value="7"/>
+      <compilecount enable="1" value="12"/>
+      <buildcount enable="1" value="12"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -124,8 +124,8 @@
       <executable value="..\_bin\llcma64.exe"/>
       <options thread="1" xpskin="1"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="7"/>
-      <buildcount enable="1" value="7"/>
+      <compilecount enable="1" value="12"/>
+      <buildcount enable="1" value="12"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
