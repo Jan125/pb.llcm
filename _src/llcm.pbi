@@ -16,6 +16,13 @@ Module LLCM
     d.i
   EndStructure
   
+  Structure LLCM_STRUCT_INDEX
+    Start.i
+    Stop.i
+    Type.i
+    Depth.i
+  EndStructure
+  
   EnumerationBinary LLCM_TYPE 0
     #LLCM_TYPE_NON
     #LLCM_TYPE_LIS = 1
@@ -78,208 +85,222 @@ Module LLCM
 ;     
 ;   EndProcedure
 ;   
-  Procedure.i AssertIndexStructure(*String, List IndexList.Integer_Group_4(), Pattern.s = "")
-    Protected a.i
-    Protected b.i = 1
-    Protected c.i
+  Procedure.i AssertIndexStructure(*String, List IndexList.LLCM_STRUCT_INDEX(), Pattern.s = "")
+    Protected Index.i
+    Protected Boolean.i = 1
+    Protected Condition.i
     Protected d.i
-    Protected e.s
+    Protected Literal.s
+    
+    #LLCM_COND_EVAL = "?"
+    #LLCM_COND_LITERAL = ":"
+    #LLCM_COND_NEXT = "+"
+    #LLCM_COND_PREVIOUS = "-"
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
+;     #LLCM_COND_
     
     PushListPosition(IndexList())
-    For a = 0 To Len(Pattern) - 1
+    For Index = 0 To Len(Pattern) - 1
       If ListIndex(IndexList()) <> -1
-        Select PeekC(@Pattern + a * SizeOf(Character))
-          Case Asc("?")
-            If c
-              c = 0
+        Select PeekC(@Pattern + Index * SizeOf(Character))
+          Case Asc(#LLCM_COND_EVAL)
+            If Condition
+              Condition = 0
             Else
-              b = 0
+              Boolean = 0
               Break
             EndIf
             
-          Case Asc(":")
-            a + 1
-            d = PeekC(@Pattern + a * SizeOf(Character))
+          Case Asc(#LLCM_COND_LITERAL)
+            Index + 1
+            d = PeekC(@Pattern + Index * SizeOf(Character))
             Repeat
-              a + 1
-              If PeekC(@Pattern + a * SizeOf(Character)) <> d
-                e + Chr(PeekC(@Pattern + a * SizeOf(Character)))
+              Index + 1
+              If PeekC(@Pattern + Index * SizeOf(Character)) <> d
+                Literal + Chr(PeekC(@Pattern + Index * SizeOf(Character)))
               EndIf
-            Until PeekC(@Pattern + a * SizeOf(Character)) = d
+            Until PeekC(@Pattern + Index * SizeOf(Character)) = d
             d = 0
             
-            If Not PeekS(*String + IndexList()\a * SizeOf(Character), IndexList()\b - IndexList()\a + 1) = e
-              b = 0
-              e = ""
+            If Not PeekS(*String + IndexList()\Start * SizeOf(Character), IndexList()\Stop - IndexList()\Start + 1) = Literal
+              Boolean = 0
+              Literal = ""
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
-            e = ""
+            Literal = ""
             
-          Case Asc("+")
+          Case Asc(#LLCM_COND_NEXT)
             If Not NextElement(IndexList())
-              b = 0
+              Boolean = 0
               Break
             EndIf
-            c = 1
+            Condition = 1
             
-          Case Asc("-")
+          Case Asc(#LLCM_COND_PREVIOUS)
             If Not PreviousElement(IndexList())
-              b = 0
+              Boolean = 0
               Break
             EndIf
-            c = 1
+            Condition = 1
             
           Case Asc("*")
-            If IndexList()\c & #LLCM_TYPE_LIS
-              d = IndexList()\b
+            If IndexList()\Type & #LLCM_TYPE_LIS
+              d = IndexList()\Stop
               While NextElement(IndexList())
-                If IndexList()\a > d
+                If IndexList()\Start > d
                   Break
                 EndIf
               Wend
               If ListIndex(IndexList()) = -1
-                b = 0
+                Boolean = 0
                 Break
               EndIf
-              c = 1
+              Condition = 1
             Else
-              b = 0
+              Boolean = 0
               Break
             EndIf
             
           Case Asc("l")
-            If Not IndexList()\c & #LLCM_TYPE_LIS
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_LIS
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("c")
-            If Not IndexList()\c & #LLCM_TYPE_CMD
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_CMD
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("e")
-            If Not IndexList()\c & #LLCM_TYPE_END
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_END
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("h")
-            If Not IndexList()\c & #LLCM_TYPE_HEX
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_HEX
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("b")
-            If Not IndexList()\c & #LLCM_TYPE_BIN
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_BIN
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("s")
-            If Not IndexList()\c & #LLCM_TYPE_STR
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_STR
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("n")
-            If Not IndexList()\c & #LLCM_TYPE_NAM
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_NAM
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("6")
-            If Not IndexList()\c & #LLCM_TYPE_I64
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_I64
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("3")
-            If Not IndexList()\c & #LLCM_TYPE_I32
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_I32
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("1")
-            If Not IndexList()\c & #LLCM_TYPE_I16
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_I16
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("8")
-            If Not IndexList()\c & #LLCM_TYPE_I08
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_I08
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("2")
-            If Not IndexList()\c & #LLCM_TYPE_U16
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_U16
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("9")
-            If Not IndexList()\c & #LLCM_TYPE_U08
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_U08
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("d")
-            If Not IndexList()\c & #LLCM_TYPE_F64
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_F64
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("f")
-            If Not IndexList()\c & #LLCM_TYPE_F32
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_F32
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
           Case Asc("p")
-            If Not IndexList()\c & #LLCM_TYPE_PTR
-              b = 0
+            If Not IndexList()\Type & #LLCM_TYPE_PTR
+              Boolean = 0
               Break
             Else
-              c = 1
+              Condition = 1
             EndIf
             
         EndSelect
       Else
-        b = 0
+        Boolean = 0
         Break
       EndIf
     Next
@@ -289,7 +310,7 @@ Module LLCM
   
   Procedure.s Compile(String.s)
     ;-Init
-    Protected NewList IndexList.Integer_Group_4()
+    Protected NewList IndexList.LLCM_STRUCT_INDEX()
     ;a: Beginning
     ;b: End
     ;c: Type
@@ -318,16 +339,16 @@ Module LLCM
       Select PeekC(@String + (Index * SizeOf(Character)))
         Case Asc("(")
           AddElement(IndexList())
-          IndexList()\a = Index
-          IndexList()\b = -1
-          IndexList()\d = Depth
+          IndexList()\Start = Index
+          IndexList()\Stop = -1
+          IndexList()\Depth = Depth
           Depth + 1
           
         Case Asc(")")
           If ListIndex(IndexList()) <> -1
-            If PeekC(@String + IndexList()\a * SizeOf(Character)) = Asc("(")
+            If PeekC(@String + IndexList()\Start * SizeOf(Character)) = Asc("(")
               Depth - 1
-              IndexList()\b = Index
+              IndexList()\Stop = Index
               If Not PreviousElement(IndexList())
                 ResetList(IndexList())
               EndIf
@@ -370,8 +391,8 @@ Module LLCM
         Case Asc("[")
           Count = Index
           AddElement(IndexList())
-          IndexList()\a = Index
-          IndexList()\d = Depth
+          IndexList()\Start = Index
+          IndexList()\Depth = Depth
           While Index < Finish
             Index + 1
             Column + 1
@@ -381,7 +402,7 @@ Module LLCM
                 Column = 1
               Case Asc("]")
                 If ListIndex(IndexList()) <> -1
-                  IndexList()\b = Index
+                  IndexList()\Stop = Index
                   If Not PreviousElement(IndexList())
                     ResetList(IndexList())
                   EndIf
@@ -407,9 +428,9 @@ Module LLCM
         Case 34 ;"
           Count = Index
           AddElement(IndexList())
-          IndexList()\a = Index
-          IndexList()\b = -1
-          IndexList()\d = Depth
+          IndexList()\Start = Index
+          IndexList()\Stop = -1
+          IndexList()\Depth = Depth
           While Index < Finish
             Index + 1
             Column + 1
@@ -419,7 +440,7 @@ Module LLCM
                 Column = 1
               Case 34 ;"
                 If ListIndex(IndexList()) <> -1
-                  IndexList()\b = Index
+                  IndexList()\Stop = Index
                   If Not PreviousElement(IndexList())
                     ResetList(IndexList())
                   EndIf
@@ -445,9 +466,9 @@ Module LLCM
         Case Asc("'")
           Count = Index
           AddElement(IndexList())
-          IndexList()\a = Index
-          IndexList()\b = -1
-          IndexList()\d = Depth
+          IndexList()\Start = Index
+          IndexList()\Stop = -1
+          IndexList()\Depth = Depth
           While Index < Finish
             Index + 1
             Column + 1
@@ -457,7 +478,7 @@ Module LLCM
                 Column = 1
               Case Asc("'")
                 If ListIndex(IndexList()) <> -1
-                  IndexList()\b = Index
+                  IndexList()\Stop = Index
                   If Not PreviousElement(IndexList())
                     ResetList(IndexList())
                   EndIf
@@ -488,15 +509,15 @@ Module LLCM
           
         Default
           AddElement(IndexList())
-          IndexList()\a = Index
-          IndexList()\b = -1
-          IndexList()\d = Depth
+          IndexList()\Start = Index
+          IndexList()\Stop = -1
+          IndexList()\Depth = Depth
           While Index < Finish
             Index + 1
             Select PeekC(@String + (Index * SizeOf(Character)))
               Case Asc(" "), 9, 13, 10, Asc("("), Asc(")"), Asc("["), Asc("]"), Asc(";"), 34, Asc("'"), Asc(",")
                 Index - 1
-                IndexList()\b = Index
+                IndexList()\Stop = Index
                 If Not PreviousElement(IndexList())
                   ResetList(IndexList())
                 EndIf
@@ -504,7 +525,7 @@ Module LLCM
             EndSelect
             If Index = Finish
               Index - 1
-              IndexList()\b = Index
+              IndexList()\Stop = Index
               If Not PreviousElement(IndexList())
                 ResetList(IndexList())
               EndIf
@@ -519,7 +540,7 @@ Module LLCM
     
     If Depth <> 0
       If ListIndex(IndexList()) <> -1
-        Count = IndexList()\a
+        Count = IndexList()\Start
         ClearList(IndexList())
         Index = 0
         Line = 1
@@ -543,16 +564,16 @@ Module LLCM
     
     
     ;-Sort
-    SortStructuredList(IndexList(), #PB_Sort_Ascending, OffsetOf(Integer_Group_4\a), TypeOf(Integer_Group_4\a))
+    SortStructuredList(IndexList(), #PB_Sort_Ascending, OffsetOf(LLCM_STRUCT_INDEX\Start), TypeOf(LLCM_STRUCT_INDEX\Start))
     
     
     ;-Type
     ForEach IndexList()
       ;Clear list when an invalid End value was discovered.
       ;This may happen when there is an index overrun.
-      Select IndexList()\b
+      Select IndexList()\Stop
         Case -1
-          Count = IndexList()\a
+          Count = IndexList()\Start
           ClearList(IndexList())
           Index = 0
           Line = 1
@@ -571,24 +592,24 @@ Module LLCM
       EndSelect
       
       
-      Select PeekC(@String + IndexList()\a * SizeOf(Character))
+      Select PeekC(@String + IndexList()\Start * SizeOf(Character))
         Case Asc("(")
-          IndexList()\c | #LLCM_TYPE_LIS
-          Pointer = IndexList()\b
+          IndexList()\Type | #LLCM_TYPE_LIS
+          Pointer = IndexList()\Stop
           PushListPosition(IndexList())
           
           While NextElement(IndexList())
             If ListIndex(IndexList()) = ListSize(IndexList()) - 1
-              IndexList()\c | #LLCM_TYPE_END
+              IndexList()\Type | #LLCM_TYPE_END
               
               Break 
             EndIf
-            If IndexList()\a >= Pointer
+            If IndexList()\Start >= Pointer
               
               While PreviousElement(IndexList())
-                IndexList()\c | #LLCM_TYPE_END
-                If Not IndexList()\c & #LLCM_TYPE_LIS
-                  IndexList()\c | #LLCM_TYPE_END
+                IndexList()\Type | #LLCM_TYPE_END
+                If Not IndexList()\Type & #LLCM_TYPE_LIS
+                  IndexList()\Type | #LLCM_TYPE_END
                   Break
                 EndIf
               Wend
@@ -601,53 +622,53 @@ Module LLCM
           
           Continue
         Case Asc("["), Asc("'"), 34
-          IndexList()\c | #LLCM_TYPE_STR
+          IndexList()\Type | #LLCM_TYPE_STR
           Continue
         Case Asc("0") To Asc("9"), Asc("+"), Asc("-"), Asc(".") ;Numbers, plus, minus, and decimal
-          Select PeekC(@String + IndexList()\a * SizeOf(Character))
+          Select PeekC(@String + IndexList()\Start * SizeOf(Character))
             Case Asc("+"), Asc("-"), Asc(".")
-              If IndexList()\a = IndexList()\b
+              If IndexList()\Start = IndexList()\Stop
                 If PreviousElement(IndexList())
-                  If IndexList()\c = #LLCM_TYPE_LIS
+                  If IndexList()\Type = #LLCM_TYPE_LIS
                     NextElement(IndexList())
-                    IndexList()\c | #LLCM_TYPE_CMD
+                    IndexList()\Type | #LLCM_TYPE_CMD
                   Else
                     NextElement(IndexList())
                   EndIf
                 Else
-                  IndexList()\c | #LLCM_TYPE_CMD
+                  IndexList()\Type | #LLCM_TYPE_CMD
                 EndIf
-                IndexList()\c | #LLCM_TYPE_NAM
+                IndexList()\Type | #LLCM_TYPE_NAM
                 Continue
               EndIf
           EndSelect
           
           ;check illegals
-          For Index = IndexList()\a To IndexList()\b
+          For Index = IndexList()\Start To IndexList()\Stop
             Select PeekC(@String + (Index * SizeOf(Character)))
               Case Asc("x")
-                If Index = IndexList()\a + 1
+                If Index = IndexList()\Start + 1
                   Continue
                 Else
                   Break
                 EndIf
               Case Asc("+"), Asc("-")
-                If Index = IndexList()\a
+                If Index = IndexList()\Start
                   Continue
                 Else
                   Break
                 EndIf
               Case Asc("0") To Asc("9")
               Case Asc(".")
-                If IndexList()\b - IndexList()\a >= 1
-                  Select PeekC(@String + (IndexList()\a + 1) * SizeOf(Character))
+                If IndexList()\Stop - IndexList()\Start >= 1
+                  Select PeekC(@String + (IndexList()\Start + 1) * SizeOf(Character))
                     Case Asc("x")
                       Break
                   EndSelect
                 EndIf
               Case Asc("a") To Asc("f"), Asc("A") To Asc("F")
-                If IndexList()\b - IndexList()\a >= 1
-                  Select PeekC(@String + (IndexList()\a + 1) * SizeOf(Character))
+                If IndexList()\Stop - IndexList()\Start >= 1
+                  Select PeekC(@String + (IndexList()\Start + 1) * SizeOf(Character))
                     Case Asc("x")
                       Continue
                     Default
@@ -659,42 +680,42 @@ Module LLCM
             EndSelect
           Next
           
-          If Index <= IndexList()\b
+          If Index <= IndexList()\Stop
             If PreviousElement(IndexList())
-              If IndexList()\c = #LLCM_TYPE_LIS
+              If IndexList()\Type = #LLCM_TYPE_LIS
                 NextElement(IndexList())
-                IndexList()\c | #LLCM_TYPE_CMD
+                IndexList()\Type | #LLCM_TYPE_CMD
               Else
                 NextElement(IndexList())
               EndIf
             Else
-              IndexList()\c | #LLCM_TYPE_CMD
+              IndexList()\Type | #LLCM_TYPE_CMD
             EndIf
-            IndexList()\c | #LLCM_TYPE_NAM
+            IndexList()\Type | #LLCM_TYPE_NAM
             Continue
           EndIf
           ;end check illegals
           
           
-          For Index = IndexList()\a To IndexList()\b
+          For Index = IndexList()\Start To IndexList()\Stop
             Select PeekC(@String + (Index * SizeOf(Character)))
               Case Asc(".")
-                If Index < IndexList()\b
+                If Index < IndexList()\Stop
                   Index + 1
-                  For Index = Index To IndexList()\b
+                  For Index = Index To IndexList()\Stop
                     Select PeekC(@String + (Index * SizeOf(Character)))
                       Case Asc(".")
                         If PreviousElement(IndexList())
-                          If IndexList()\c = #LLCM_TYPE_LIS
+                          If IndexList()\Type = #LLCM_TYPE_LIS
                             NextElement(IndexList())
-                            IndexList()\c | #LLCM_TYPE_CMD
+                            IndexList()\Type | #LLCM_TYPE_CMD
                           Else
                             NextElement(IndexList())
                           EndIf
                         Else
-                          IndexList()\c | #LLCM_TYPE_CMD
+                          IndexList()\Type | #LLCM_TYPE_CMD
                         EndIf
-                        IndexList()\c | #LLCM_TYPE_NAM
+                        IndexList()\Type | #LLCM_TYPE_NAM
                         Index = -1
                         Break
                     EndSelect
@@ -708,48 +729,48 @@ Module LLCM
             Continue
           EndIf
           
-          For Index = IndexList()\a To IndexList()\b
+          For Index = IndexList()\Start To IndexList()\Stop
             Select PeekC(@String + (Index * SizeOf(Character)))
               Case Asc(".")
                 Break
             EndSelect
           Next
           
-          If Index <= IndexList()\b
-            If IndexList()\b - Index < 15
-              IndexList()\c | #LLCM_TYPE_F32
+          If Index <= IndexList()\Stop
+            If IndexList()\Stop - Index < 15
+              IndexList()\Type | #LLCM_TYPE_F32
               Continue
             Else
-              IndexList()\c | #LLCM_TYPE_F64
+              IndexList()\Type | #LLCM_TYPE_F64
               Continue
             EndIf
           Else
-            If IndexList()\b - IndexList()\a >= 2
-              Select PeekS(@String + IndexList()\a * SizeOf(Character), 2)
+            If IndexList()\Stop - IndexList()\Start >= 2
+              Select PeekS(@String + IndexList()\Start * SizeOf(Character), 2)
                 Case "0x"
-                  If IndexList()\b - IndexList()\a < 11
-                    IndexList()\c | #LLCM_TYPE_I32
-                    IndexList()\c | #LLCM_TYPE_HEX
+                  If IndexList()\Stop - IndexList()\Start < 11
+                    IndexList()\Type | #LLCM_TYPE_I32
+                    IndexList()\Type | #LLCM_TYPE_HEX
                     Continue
                   Else
-                    IndexList()\c | #LLCM_TYPE_I64
-                    IndexList()\c | #LLCM_TYPE_HEX
+                    IndexList()\Type | #LLCM_TYPE_I64
+                    IndexList()\Type | #LLCM_TYPE_HEX
                     Continue
                   EndIf
                 Case "0b"
-                  If IndexList()\b - IndexList()\a < 35
-                    IndexList()\c | #LLCM_TYPE_I32
-                    IndexList()\c | #LLCM_TYPE_BIN
+                  If IndexList()\Stop - IndexList()\Start < 35
+                    IndexList()\Type | #LLCM_TYPE_I32
+                    IndexList()\Type | #LLCM_TYPE_BIN
                     Continue
                   Else
-                    IndexList()\c | #LLCM_TYPE_I64
-                    IndexList()\c | #LLCM_TYPE_BIN
+                    IndexList()\Type | #LLCM_TYPE_I64
+                    IndexList()\Type | #LLCM_TYPE_BIN
                     Continue
                   EndIf
               EndSelect
             EndIf
             
-            For Index = IndexList()\a To IndexList()\b
+            For Index = IndexList()\Start To IndexList()\Stop
               Select PeekC(@String + (Index * SizeOf(Character)))
                 Case Asc("0") To Asc("9"), Asc("+"), Asc("-")
                 Default
@@ -757,27 +778,27 @@ Module LLCM
               EndSelect
             Next
             
-            If Index <= IndexList()\b
+            If Index <= IndexList()\Stop
               If PreviousElement(IndexList())
-                If IndexList()\c = #LLCM_TYPE_LIS
+                If IndexList()\Type = #LLCM_TYPE_LIS
                   NextElement(IndexList())
-                  IndexList()\c | #LLCM_TYPE_CMD
+                  IndexList()\Type | #LLCM_TYPE_CMD
                 Else
                   NextElement(IndexList())
                 EndIf
               Else
-                IndexList()\c | #LLCM_TYPE_CMD
+                IndexList()\Type | #LLCM_TYPE_CMD
               EndIf
-              IndexList()\c | #LLCM_TYPE_NAM
+              IndexList()\Type | #LLCM_TYPE_NAM
               Continue
             EndIf
             
             
-            If IndexList()\b - IndexList()\a < 12
-              IndexList()\c | #LLCM_TYPE_I32
+            If IndexList()\Stop - IndexList()\Start < 12
+              IndexList()\Type | #LLCM_TYPE_I32
               Continue
             Else
-              IndexList()\c | #LLCM_TYPE_I64
+              IndexList()\Type | #LLCM_TYPE_I64
               Continue
             EndIf
           EndIf
@@ -785,16 +806,16 @@ Module LLCM
         Default
           
           If PreviousElement(IndexList())
-            If IndexList()\c = #LLCM_TYPE_LIS
+            If IndexList()\Type = #LLCM_TYPE_LIS
               NextElement(IndexList())
-              IndexList()\c | #LLCM_TYPE_CMD
+              IndexList()\Type | #LLCM_TYPE_CMD
             Else
               NextElement(IndexList())
             EndIf
           Else
-            IndexList()\c | #LLCM_TYPE_CMD
+            IndexList()\Type | #LLCM_TYPE_CMD
           EndIf
-          IndexList()\c | #LLCM_TYPE_NAM
+          IndexList()\Type | #LLCM_TYPE_NAM
           Continue
       EndSelect
     Next
@@ -802,9 +823,9 @@ Module LLCM
     
     ;-Compile
     ForEach IndexList()
-      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      If Not IndexList()\Type & #LLCM_TYPE_LIS And IndexList()\Type & #LLCM_TYPE_CMD
 
-        ;         Select PeekS(@String + IndexList()\a * SizeOf(Character), IndexList()\b - IndexList()\a + 1)
+        ;         Select PeekS(@String + IndexList()\Start * SizeOf(Character), IndexList()\Stop - IndexList()\Start + 1)
         ;           Case "Function"
         ;             Debug AssertIndexStructure(@String, IndexList(), "n?:'Function'?+?l?+?n?e?+?n?:'Do'?+?l?*?")
         ;             Debug AssertIndexStructure(@String, IndexList(), "n?:'Function'?+?l?+?n?e?+?n?:'Do'?+?l?*? n?:'With'?+?l?*?")
@@ -818,16 +839,16 @@ Module LLCM
     ;-Interpret
     ;--PreProcess
     ForEach IndexList()
-      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      If Not IndexList()\Type & #LLCM_TYPE_LIS And IndexList()\Type & #LLCM_TYPE_CMD
       EndIf
     Next
     ;Process
     ForEach IndexList()
-      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      If Not IndexList()\Type & #LLCM_TYPE_LIS And IndexList()\Type & #LLCM_TYPE_CMD
       EndIf
     Next
     ForEach IndexList()
-      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      If Not IndexList()\Type & #LLCM_TYPE_LIS And IndexList()\Type & #LLCM_TYPE_CMD
       EndIf
     Next
     
@@ -837,9 +858,9 @@ Module LLCM
     Index = 0
     Count = 0
     ForEach IndexList()
-      If Not IndexList()\c & #LLCM_TYPE_LIS
+      If Not IndexList()\Type & #LLCM_TYPE_LIS
         Count + 1
-        Debug Space(IndexList()\d * 2) + Str(IndexList()\a) + "_" + Str(IndexList()\b) + ":" + RSet(Bin(IndexList()\c), 14, "0") + ":" + PeekS(@String + IndexList()\a * SizeOf(Character), IndexList()\b - IndexList()\a + 1)
+        Debug Space(IndexList()\Depth * 2) + Str(IndexList()\Start) + "_" + Str(IndexList()\Stop) + ":" + RSet(Bin(IndexList()\Type), 14, "0") + ":" + PeekS(@String + IndexList()\Start * SizeOf(Character), IndexList()\Stop - IndexList()\Start + 1)
       EndIf
       
     Next
@@ -852,3 +873,9 @@ Module LLCM
   EndProcedure
   
 EndModule
+; IDE Options = PureBasic 6.40 (Windows - x86)
+; CursorPosition = 100
+; FirstLine = 77
+; Folding = --
+; EnableXP
+; DPIAware
