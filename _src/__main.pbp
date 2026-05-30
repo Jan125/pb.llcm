@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.46 LTS (Windows - x86)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.40 (Windows - x86)">
   <section name="config">
     <options closefiles="1" openmode="0" name="LisP Lexer, Compiler, &amp; More"/>
   </section>
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2025-07-22 13:52" user="Dino" host="HUSKLET"/>
+    <lastopen date="2026-05-30 15:19" user="tdnsr" host="FEDORA"/>
   </section>
   <section name="files">
     <file name="_main.pb">
-      <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="c92434c54f2466e465f75a96d7059ce2"/>
+      <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
+      <fingerprint md5="69fca1f1c08fe739fd142ddddabda6a4"/>
     </file>
     <file name="_test.pb">
-      <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="37ddddaae3cea28276dfc7acf00a9cc6"/>
+      <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
+      <fingerprint md5="4efddcd1a52c1957b33a8fc52749affe"/>
     </file>
     <file name="include\consoleutil.pbi">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="++"/>
-      <fingerprint md5="a1739233bcfac07dd38beeb2915c4a43"/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate="++"/>
+      <fingerprint md5="89b344288977735c9937755e766c8069"/>
     </file>
     <file name="llcm.pbi">
-      <config load="1" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="1d7a7d3aad3fa984904f3c87bd94cbf2"/>
+      <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
+      <fingerprint md5="c46577e6ebc8afd8ad1fea9993a3dbb2"/>
+    </file>
+    <file name="_dll.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
+      <fingerprint md5="21939612219bd6a9f39eb344727c3ce2"/>
     </file>
   </section>
   <section name="targets">
     <target name="TEST" enabled="0" default="1">
       <inputfile value="_test.pb"/>
       <outputfile value=""/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
-      <options unicode="1" thread="1" debug="1"/>
+      <compiler version="PureBasic 6.40 (Windows - x86)"/>
+      <directory value="..\"/>
+      <options unicode="1" thread="1" debug="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="214"/>
+      <compilecount enable="1" value="222"/>
     </target>
-    <target name="EXEw86" enabled="1" default="0">
-      <inputfile value="_main.pb"/>
-      <outputfile value="..\_bin\llcm.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
-      <executable value="..\_bin\llcm.exe"/>
-      <options unicode="1" thread="1" xpskin="1"/>
-      <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="13"/>
-      <buildcount enable="1" value="13"/>
+    <target name="DLL_x86_ASM" enabled="1" default="0">
+      <inputfile value="_dll.pb"/>
+      <outputfile value="..\_bin\llcm.dll"/>
+      <compiler version="PureBasic 6.40 (Windows - x86)"/>
+      <executable value="..\_bin\llcm.dll"/>
+      <options thread="1" xpskin="1" optimizer="0"/>
+      <format exe="dll" cpu="0"/>
+      <compilecount enable="1" value="19"/>
+      <buildcount enable="1" value="19"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -53,7 +58,7 @@
         <field3 value="LLCM"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, &amp; More"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (ASM)"/>
         <field7 value="llcm"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
@@ -63,25 +68,25 @@
         <field16 value="VFT_APP"/>
       </versioninfo>
     </target>
-    <target name="EXEa86" enabled="1" default="0">
-      <inputfile value="_main.pb"/>
-      <outputfile value="..\_bin\llcma.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
-      <executable value="..\_bin\llcma.exe"/>
-      <options thread="1" xpskin="1"/>
-      <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="13"/>
-      <buildcount enable="1" value="13"/>
+    <target name="DLL_x86_C" enabled="1" default="0">
+      <inputfile value="_dll.pb"/>
+      <outputfile value="..\_bin\llcmc.dll"/>
+      <compiler version="PureBasic 6.40 - C Backend (Windows - x86)"/>
+      <executable value="..\_bin\llcmc.dll"/>
+      <options thread="1" xpskin="1" optimizer="1"/>
+      <format exe="dll" cpu="0"/>
+      <compilecount enable="1" value="19"/>
+      <buildcount enable="1" value="19"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field1 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field2 value="Synkronas NeV"/>
-        <field3 value="LLCMa"/>
+        <field3 value="LLCM"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, &amp; More (ASCII)"/>
-        <field7 value="llcma"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (C)"/>
+        <field7 value="llcm"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
         <field13 value="synkronas@outlook.com"/>
@@ -90,25 +95,25 @@
         <field16 value="VFT_APP"/>
       </versioninfo>
     </target>
-    <target name="EXEw64" enabled="1" default="0">
-      <inputfile value="_main.pb"/>
-      <outputfile value="..\_bin\llcm64.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x64)"/>
-      <executable value="..\_bin\llcm64.exe"/>
-      <options unicode="1" thread="1" xpskin="1"/>
-      <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="13"/>
-      <buildcount enable="1" value="13"/>
+    <target name="DLL_x64_ASM" enabled="1" default="0">
+      <inputfile value="_dll.pb"/>
+      <outputfile value="..\_bin\llcm64.dll"/>
+      <compiler version="PureBasic 6.40 (Windows - x64)"/>
+      <executable value="..\_bin\llcm64.dll"/>
+      <options thread="1" xpskin="1" optimizer="0"/>
+      <format exe="dll" cpu="0"/>
+      <compilecount enable="1" value="19"/>
+      <buildcount enable="1" value="19"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field1 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field2 value="Synkronas NeV"/>
-        <field3 value="LLCM64"/>
+        <field3 value="LLCM"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, &amp; More (x64)"/>
-        <field7 value="llcm64"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (ASM x64)"/>
+        <field7 value="llcm"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
         <field13 value="synkronas@outlook.com"/>
@@ -117,25 +122,25 @@
         <field16 value="VFT_APP"/>
       </versioninfo>
     </target>
-    <target name="EXEa64" enabled="1" default="0">
-      <inputfile value="_main.pb"/>
-      <outputfile value="..\_bin\llcma64.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x64)"/>
-      <executable value="..\_bin\llcma64.exe"/>
-      <options thread="1" xpskin="1"/>
-      <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="13"/>
-      <buildcount enable="1" value="13"/>
+    <target name="DLL_x64_C" enabled="1" default="0">
+      <inputfile value="_dll.pb"/>
+      <outputfile value="..\_bin\llcmc64.dll"/>
+      <compiler version="PureBasic 6.40 - C Backend (Windows - x64)"/>
+      <executable value="..\_bin\llcmc64.dll"/>
+      <options thread="1" xpskin="1" optimizer="1"/>
+      <format exe="dll" cpu="0"/>
+      <compilecount enable="1" value="19"/>
+      <buildcount enable="1" value="19"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field1 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
         <field2 value="Synkronas NeV"/>
-        <field3 value="LLCMa64"/>
+        <field3 value="LLCM"/>
         <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
         <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
-        <field6 value="LisP Lexer, Compiler, &amp; More (x64) (ASCII)"/>
-        <field7 value="llcma64"/>
+        <field6 value="LisP Lexer, Compiler, &amp; More (C x64)"/>
+        <field7 value="llcm"/>
         <field8 value="%EXECUTABLE"/>
         <field9 value="(CC-0) %yyyy"/>
         <field13 value="synkronas@outlook.com"/>

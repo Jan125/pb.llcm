@@ -5,8 +5,11 @@ DeclareModule LLCM
 EndDeclareModule
 
 Module LLCM
+  
   Procedure.s Error(Message.s, Position, Line, Column)
-    ProcedureReturn "Compiler Error: " + Message + #CRLF$ + "Position: " + Str(Position) + ", Line: " + Str(Line) + ", Column: " + Str(Column) + #CRLF$ + "Compilation aborted."
+    ProcedureReturn "Compiler Error: " + Message + #CRLF$ +
+                    "Position: " + Str(Position) + ", Line: " + Str(Line) + ", Column: " + Str(Column) + #CRLF$ +
+                    "Compilation aborted."
   EndProcedure
   
   Structure Integer_Group_4
@@ -50,6 +53,28 @@ Module LLCM
     #LLCM_TYPE_PTR
   EndEnumeration
   
+  #LLCM_COND_EVAL = "?"
+  #LLCM_COND_LITERAL = ":"
+  #LLCM_COND_NEXT = "+"
+  #LLCM_COND_PREVIOUS = "-"
+  #LLCM_COND_SUBLIST = "*"
+  #LLCM_COND_LIS = "l"
+  #LLCM_COND_CMD = "c"
+  #LLCM_COND_END = "e"
+  #LLCM_COND_HEX = "h"
+  #LLCM_COND_BIN = "b"
+  #LLCM_COND_STR = "s"
+  #LLCM_COND_NAM = "n"
+  #LLCM_COND_I64 = "6"
+  #LLCM_COND_I32 = "3"
+  #LLCM_COND_I16 = "1"
+  #LLCM_COND_I08 = "8"
+  #LLCM_COND_U16 = "2"
+  #LLCM_COND_U08 = "9"
+  #LLCM_COND_F64 = "d"
+  #LLCM_COND_F32 = "f"
+  #LLCM_COND_PTR = "p"
+  
   Procedure.i TypePriority(Flags.i)
     If Flags & #LLCM_TYPE_LIS
       ProcedureReturn #LLCM_TYPE_LIS
@@ -81,30 +106,17 @@ Module LLCM
   
   ;Procedure 
   
-;   Procedure.s Interpret(*String, List IndexList.Integer_Group_4(), )
-;     
-;   EndProcedure
-;   
+  ;   Procedure.s Interpret(*String, List IndexList.Integer_Group_4(), )
+  ;     
+  ;   EndProcedure
+  ;   
   Procedure.i AssertIndexStructure(*String, List IndexList.LLCM_STRUCT_INDEX(), Pattern.s = "")
     Protected Index.i
     Protected Boolean.i = 1
     Protected Condition.i
-    Protected d.i
+    Protected Temporary.i
     Protected Literal.s
     
-    #LLCM_COND_EVAL = "?"
-    #LLCM_COND_LITERAL = ":"
-    #LLCM_COND_NEXT = "+"
-    #LLCM_COND_PREVIOUS = "-"
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
-;     #LLCM_COND_
     
     PushListPosition(IndexList())
     For Index = 0 To Len(Pattern) - 1
@@ -120,14 +132,14 @@ Module LLCM
             
           Case Asc(#LLCM_COND_LITERAL)
             Index + 1
-            d = PeekC(@Pattern + Index * SizeOf(Character))
+            Temporary = PeekC(@Pattern + Index * SizeOf(Character))
             Repeat
               Index + 1
-              If PeekC(@Pattern + Index * SizeOf(Character)) <> d
+              If PeekC(@Pattern + Index * SizeOf(Character)) <> Temporary
                 Literal + Chr(PeekC(@Pattern + Index * SizeOf(Character)))
               EndIf
-            Until PeekC(@Pattern + Index * SizeOf(Character)) = d
-            d = 0
+            Until PeekC(@Pattern + Index * SizeOf(Character)) = Temporary
+            Temporary = 0
             
             If Not PeekS(*String + IndexList()\Start * SizeOf(Character), IndexList()\Stop - IndexList()\Start + 1) = Literal
               Boolean = 0
@@ -152,11 +164,11 @@ Module LLCM
             EndIf
             Condition = 1
             
-          Case Asc("*")
+          Case Asc(#LLCM_COND_SUBLIST)
             If IndexList()\Type & #LLCM_TYPE_LIS
-              d = IndexList()\Stop
+              Temporary = IndexList()\Stop
               While NextElement(IndexList())
-                If IndexList()\Start > d
+                If IndexList()\Start > Temporary
                   Break
                 EndIf
               Wend
@@ -170,7 +182,7 @@ Module LLCM
               Break
             EndIf
             
-          Case Asc("l")
+          Case Asc(#LLCM_COND_LIS)
             If Not IndexList()\Type & #LLCM_TYPE_LIS
               Boolean = 0
               Break
@@ -178,7 +190,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("c")
+          Case Asc(#LLCM_COND_CMD)
             If Not IndexList()\Type & #LLCM_TYPE_CMD
               Boolean = 0
               Break
@@ -186,7 +198,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("e")
+          Case Asc(#LLCM_COND_END)
             If Not IndexList()\Type & #LLCM_TYPE_END
               Boolean = 0
               Break
@@ -194,7 +206,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("h")
+          Case Asc(#LLCM_COND_HEX)
             If Not IndexList()\Type & #LLCM_TYPE_HEX
               Boolean = 0
               Break
@@ -202,7 +214,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("b")
+          Case Asc(#LLCM_COND_BIN)
             If Not IndexList()\Type & #LLCM_TYPE_BIN
               Boolean = 0
               Break
@@ -210,7 +222,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("s")
+          Case Asc(#LLCM_COND_STR)
             If Not IndexList()\Type & #LLCM_TYPE_STR
               Boolean = 0
               Break
@@ -218,7 +230,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("n")
+          Case Asc(#LLCM_COND_NAM)
             If Not IndexList()\Type & #LLCM_TYPE_NAM
               Boolean = 0
               Break
@@ -226,7 +238,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("6")
+          Case Asc(#LLCM_COND_I64)
             If Not IndexList()\Type & #LLCM_TYPE_I64
               Boolean = 0
               Break
@@ -234,7 +246,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("3")
+          Case Asc(#LLCM_COND_I32)
             If Not IndexList()\Type & #LLCM_TYPE_I32
               Boolean = 0
               Break
@@ -242,7 +254,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("1")
+          Case Asc(#LLCM_COND_I16)
             If Not IndexList()\Type & #LLCM_TYPE_I16
               Boolean = 0
               Break
@@ -250,7 +262,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("8")
+          Case Asc(#LLCM_COND_I08)
             If Not IndexList()\Type & #LLCM_TYPE_I08
               Boolean = 0
               Break
@@ -258,7 +270,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("2")
+          Case Asc(#LLCM_COND_U16)
             If Not IndexList()\Type & #LLCM_TYPE_U16
               Boolean = 0
               Break
@@ -266,7 +278,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("9")
+          Case Asc(#LLCM_COND_U08)
             If Not IndexList()\Type & #LLCM_TYPE_U08
               Boolean = 0
               Break
@@ -274,7 +286,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("d")
+          Case Asc(#LLCM_COND_F64)
             If Not IndexList()\Type & #LLCM_TYPE_F64
               Boolean = 0
               Break
@@ -282,7 +294,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("f")
+          Case Asc(#LLCM_COND_F32)
             If Not IndexList()\Type & #LLCM_TYPE_F32
               Boolean = 0
               Break
@@ -290,7 +302,7 @@ Module LLCM
               Condition = 1
             EndIf
             
-          Case Asc("p")
+          Case Asc(#LLCM_COND_PTR)
             If Not IndexList()\Type & #LLCM_TYPE_PTR
               Boolean = 0
               Break
@@ -305,7 +317,7 @@ Module LLCM
       EndIf
     Next
     PopListPosition(IndexList())
-    ProcedureReturn b
+    ProcedureReturn Boolean
   EndProcedure
   
   Procedure.s Compile(String.s)
@@ -824,7 +836,7 @@ Module LLCM
     ;-Compile
     ForEach IndexList()
       If Not IndexList()\Type & #LLCM_TYPE_LIS And IndexList()\Type & #LLCM_TYPE_CMD
-
+        
         ;         Select PeekS(@String + IndexList()\Start * SizeOf(Character), IndexList()\Stop - IndexList()\Start + 1)
         ;           Case "Function"
         ;             Debug AssertIndexStructure(@String, IndexList(), "n?:'Function'?+?l?+?n?e?+?n?:'Do'?+?l?*?")
@@ -874,8 +886,8 @@ Module LLCM
   
 EndModule
 ; IDE Options = PureBasic 6.40 (Windows - x86)
-; CursorPosition = 100
-; FirstLine = 77
+; CursorPosition = 860
+; FirstLine = 836
 ; Folding = --
 ; EnableXP
 ; DPIAware

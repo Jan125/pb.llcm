@@ -40,8 +40,8 @@ EndProcedure
 OpenConsole()
 
 Define String.s
-;String = LLCM::Compile(EntireFileContent("C:\Users\Dino\Documents\PureBasic\PNBpaddlesandball\pnbpaddlesandball.pnb"))
-String = LLCM::Compile("Hello.")
+String = LLCM::Compile(EntireFileContent(".\_exclude\pnbpaddlesandball.pnb"))
+;String = LLCM::Compile("Hello.")
 If PeekS(@String, 14) = "Compiler Error"
   WriteError(String)
 Else
@@ -49,3 +49,9 @@ Else
 EndIf
 
 Input()
+; IDE Options = PureBasic 6.40 (Windows - x86)
+; CursorPosition = 42
+; FirstLine = 6
+; Folding = -
+; EnableXP
+; DPIAware
