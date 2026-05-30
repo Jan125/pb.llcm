@@ -40,7 +40,8 @@ EndProcedure
 OpenConsole()
 
 Define String.s
-String = LLCM::Compile(EntireFileContent("C:\Users\Dino\Documents\PureBasic\PNBpaddlesandball\pnbpaddlesandball.pnb"))
+;String = LLCM::Compile(EntireFileContent("C:\Users\Dino\Documents\PureBasic\PNBpaddlesandball\pnbpaddlesandball.pnb"))
+String = LLCM::Compile("Hello.")
 If PeekS(@String, 14) = "Compiler Error"
   WriteError(String)
 Else

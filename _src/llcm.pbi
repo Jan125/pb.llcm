@@ -72,6 +72,12 @@ Module LLCM
     ProcedureReturn #LLCM_TYPE_NON
   EndProcedure
   
+  ;Procedure 
+  
+;   Procedure.s Interpret(*String, List IndexList.Integer_Group_4(), )
+;     
+;   EndProcedure
+;   
   Procedure.i AssertIndexStructure(*String, List IndexList.Integer_Group_4(), Pattern.s = "")
     Protected a.i
     Protected b.i = 1
@@ -808,6 +814,25 @@ Module LLCM
       EndIf
     Next
     ;Delay(30000)
+    
+    ;-Interpret
+    ;--PreProcess
+    ForEach IndexList()
+      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      EndIf
+    Next
+    ;Process
+    ForEach IndexList()
+      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      EndIf
+    Next
+    ForEach IndexList()
+      If Not IndexList()\c & #LLCM_TYPE_LIS And IndexList()\c & #LLCM_TYPE_CMD
+      EndIf
+    Next
+    
+    
+    
     ;-Output
     Index = 0
     Count = 0
@@ -816,7 +841,6 @@ Module LLCM
         Count + 1
         Debug Space(IndexList()\d * 2) + Str(IndexList()\a) + "_" + Str(IndexList()\b) + ":" + RSet(Bin(IndexList()\c), 14, "0") + ":" + PeekS(@String + IndexList()\a * SizeOf(Character), IndexList()\b - IndexList()\a + 1)
       EndIf
-      
       
     Next
     
