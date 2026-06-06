@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2026-06-01 17:57" user="tdnsr" host="FEDORA"/>
+    <lastopen date="2026-06-06 13:14" user="tdnsr" host="FEDORA"/>
   </section>
   <section name="files">
     <file name="_main.pb">
@@ -16,19 +16,19 @@
     </file>
     <file name="_test.pb">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
-      <fingerprint md5="4efddcd1a52c1957b33a8fc52749affe"/>
+      <fingerprint md5="90f6d61c7a68d4c4ffccc88704bbd3ba"/>
     </file>
     <file name="include\consoleutil.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate="++"/>
-      <fingerprint md5="89b344288977735c9937755e766c8069"/>
+      <fingerprint md5="85b8ec1947c9abf7af720df198803dff"/>
     </file>
     <file name="llcm.pbi">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
-      <fingerprint md5="c46577e6ebc8afd8ad1fea9993a3dbb2"/>
+      <fingerprint md5="e1114f6b20ce63ec7f27419094b5279d"/>
     </file>
     <file name="_dll.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
-      <fingerprint md5="21939612219bd6a9f39eb344727c3ce2"/>
+      <fingerprint md5="b8a1722acf556a9edc2f9e0903d6e420"/>
     </file>
   </section>
   <section name="targets">
@@ -48,8 +48,8 @@
       <executable value="..\_bin\llcm.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="20"/>
-      <buildcount enable="1" value="20"/>
+      <compilecount enable="1" value="23"/>
+      <buildcount enable="1" value="23"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -75,8 +75,8 @@
       <executable value="..\_bin\llcmc.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="20"/>
-      <buildcount enable="1" value="20"/>
+      <compilecount enable="1" value="23"/>
+      <buildcount enable="1" value="23"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -102,8 +102,8 @@
       <executable value="..\_bin\llcm64.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="20"/>
-      <buildcount enable="1" value="20"/>
+      <compilecount enable="1" value="23"/>
+      <buildcount enable="1" value="23"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -129,8 +129,8 @@
       <executable value="..\_bin\llcmc64.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="20"/>
-      <buildcount enable="1" value="20"/>
+      <compilecount enable="1" value="23"/>
+      <buildcount enable="1" value="23"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
