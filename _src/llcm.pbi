@@ -1,7 +1,7 @@
 ﻿EnableExplicit
 
 DeclareModule LLCM
-  Declare.s Compile(String.s)
+  Declare.s Evaluate(String.s)
 EndDeclareModule
 
 Module LLCM
@@ -11,13 +11,6 @@ Module LLCM
                     "Position: " + Str(Position) + ", Line: " + Str(Line) + ", Column: " + Str(Column) + #CRLF$ +
                     "Compilation aborted."
   EndProcedure
-  
-  Structure Integer_Group_4
-    a.i
-    b.i
-    c.i
-    d.i
-  EndStructure
   
   Structure LLCM_STRUCT_INDEX
     Start.i
@@ -104,12 +97,7 @@ Module LLCM
     ProcedureReturn #LLCM_TYPE_NON
   EndProcedure
   
-  ;Procedure 
-  
-  ;   Procedure.s Interpret(*String, List IndexList.Integer_Group_4(), )
-  ;     
-  ;   EndProcedure
-  ;   
+
   Procedure.i AssertIndexStructure(*String, List IndexList.LLCM_STRUCT_INDEX(), Pattern.s = "")
     Protected Index.i
     Protected Boolean.i = 1
@@ -323,10 +311,6 @@ Module LLCM
   Procedure.s Compile(String.s)
     ;-Init
     Protected NewList IndexList.LLCM_STRUCT_INDEX()
-    ;a: Beginning
-    ;b: End
-    ;c: Type
-    ;d: Depth
     
     Protected Finish.i = Len(String)
     Protected Index.i = 0
@@ -885,3 +869,9 @@ Module LLCM
   EndProcedure
   
 EndModule
+; IDE Options = PureBasic 6.41 (Linux - x64)
+; CursorPosition = 622
+; FirstLine = 614
+; Folding = --
+; EnableXP
+; DPIAware

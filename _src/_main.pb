@@ -1,13 +1,10 @@
 ﻿EnableExplicit
 
-XIncludeFile "llcm.pbi"
-
-EnableExplicit
-
 ImportC "msvcrt.lib"
   system(str.p-ascii)
 EndImport
 
+Define LibraryName.s
 Define Library.i
 Define String.s
 Define InString.s
@@ -21,27 +18,28 @@ EndProcedure
 
 CompilerSelect #PB_Compiler_Processor 
   CompilerCase #PB_Processor_x86
-    Library = OpenLibrary(#PB_Any, "llcm.dll")
+    LibraryName = "llcm.dll"
   CompilerCase #PB_Processor_x64
-    Library = OpenLibrary(#PB_Any, "llcm64.dll")
+    LibraryName = "llcm64.dll"
   CompilerDefault
     CompilerError "Only x86 and x64 supported."
 CompilerEndSelect
 
+Library = OpenLibrary(#PB_Any, LibraryName)
 If Not Library
-  PrintN("Required library pnb.dll/pnb64.dll not found in directory. This program will terminate.")
+  PrintN("Required library " + LibraryName + " Not found in directory. This program will terminate.")
   system("pause")
   End
 EndIf
 
-String = "(Function (Exit) Do (Invoke None "+Str(@Exit())+"))"
+String = "(Function (Exit) Do (Invoke None " + Str(@Exit()) + "))"
 CallFunction(Library, "Compile", @String)
 
 If CountProgramParameters()
-  For i = 0 To CountProgramParameters()-1
-    InString = InString+ProgramParameter(i)
-    If i < CountProgramParameters()-1
-      InString = InString+" "
+  For i = 0 To CountProgramParameters() - 1
+    InString = InString + ProgramParameter(i)
+    If i < CountProgramParameters() - 1
+      InString = InString + " "
     EndIf
   Next
 EndIf
