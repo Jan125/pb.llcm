@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.40 (Windows - x86)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.41 (Windows - x86)">
   <section name="config">
     <options closefiles="1" openmode="0" name="LisP Lexer, Compiler, &amp; More"/>
   </section>
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2026-09-05 20:51" user="tdnsr" host="FEDORA"/>
+    <lastopen date="2026-09-05 21:12" user="tdnsr" host="FEDORA"/>
   </section>
   <section name="files">
     <file name="_main.pb">
@@ -35,7 +35,7 @@
     <target name="TEST" enabled="0" default="1">
       <inputfile value="_test.pb"/>
       <outputfile value=""/>
-      <compiler version="PureBasic 6.40 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x86)"/>
       <directory value="..\"/>
       <options unicode="1" thread="1" debug="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
@@ -44,12 +44,12 @@
     <target name="DLL_x86_ASM" enabled="1" default="0">
       <inputfile value="_dll.pb"/>
       <outputfile value="..\_bin\llcm.dll"/>
-      <compiler version="PureBasic 6.40 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x86)"/>
       <executable value="..\_bin\llcm.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -71,12 +71,12 @@
     <target name="DLL_x86_C" enabled="1" default="0">
       <inputfile value="_dll.pb"/>
       <outputfile value="..\_bin\llcmc.dll"/>
-      <compiler version="PureBasic 6.40 - C Backend (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 - C Backend (Windows - x86)"/>
       <executable value="..\_bin\llcmc.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -98,12 +98,12 @@
     <target name="DLL_x64_ASM" enabled="1" default="0">
       <inputfile value="_dll.pb"/>
       <outputfile value="..\_bin\llcm64.dll"/>
-      <compiler version="PureBasic 6.40 (Windows - x64)"/>
+      <compiler version="PureBasic 6.41 (Windows - x64)"/>
       <executable value="..\_bin\llcm64.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -125,12 +125,12 @@
     <target name="DLL_x64_C" enabled="1" default="0">
       <inputfile value="_dll.pb"/>
       <outputfile value="..\_bin\llcmc64.dll"/>
-      <compiler version="PureBasic 6.40 - C Backend (Windows - x64)"/>
+      <compiler version="PureBasic 6.41 - C Backend (Windows - x64)"/>
       <executable value="..\_bin\llcmc64.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -152,12 +152,12 @@
     <target name="RUNNER_x86" enabled="1" default="0">
       <inputfile value="_main.pb"/>
       <outputfile value="..\_bin\llcm.exe"/>
-      <compiler version="PureBasic 6.40 (Windows - x86)"/>
+      <compiler version="PureBasic 6.41 (Windows - x86)"/>
       <executable value="..\_bin\llcm.exe"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -179,12 +179,12 @@
     <target name="RUNNER_x64" enabled="1" default="0">
       <inputfile value="_main.pb"/>
       <outputfile value="..\_bin\llcm64.exe"/>
-      <compiler version="PureBasic 6.40 (Windows - x64)"/>
+      <compiler version="PureBasic 6.41 (Windows - x64)"/>
       <executable value="..\_bin\llcm64.exe"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="30"/>
-      <buildcount enable="1" value="30"/>
+      <compilecount enable="1" value="31"/>
+      <buildcount enable="1" value="31"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
