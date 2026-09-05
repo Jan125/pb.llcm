@@ -7,7 +7,7 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2026-09-05 21:12" user="tdnsr" host="FEDORA"/>
+    <lastopen date="2026-09-05 23:54" user="tdnsr" host="FEDORA"/>
   </section>
   <section name="files">
     <file name="_main.pb">
@@ -24,10 +24,10 @@
     </file>
     <file name="llcm.pbi">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
-      <fingerprint md5="3e5788928b4a70afaf0f0a86e4a1ffa9"/>
+      <fingerprint md5="67418198266f103b6f4505853b9d4e82"/>
     </file>
     <file name="_dll.pb">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
+      <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
       <fingerprint md5="db1ebc285d22bf90c30a4ec24b3d2760"/>
     </file>
   </section>
@@ -39,7 +39,7 @@
       <directory value="..\"/>
       <options unicode="1" thread="1" debug="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="228"/>
+      <compilecount enable="1" value="241"/>
     </target>
     <target name="DLL_x86_ASM" enabled="1" default="0">
       <inputfile value="_dll.pb"/>
@@ -48,8 +48,8 @@
       <executable value="..\_bin\llcm.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -75,8 +75,8 @@
       <executable value="..\_bin\llcmc.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -102,8 +102,8 @@
       <executable value="..\_bin\llcm64.dll"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -129,8 +129,8 @@
       <executable value="..\_bin\llcmc64.dll"/>
       <options thread="1" xpskin="1" optimizer="1"/>
       <format exe="dll" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -156,8 +156,8 @@
       <executable value="..\_bin\llcm.exe"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -183,8 +183,8 @@
       <executable value="..\_bin\llcm64.exe"/>
       <options thread="1" xpskin="1" optimizer="0"/>
       <format exe="console" cpu="0"/>
-      <compilecount enable="1" value="31"/>
-      <buildcount enable="1" value="31"/>
+      <compilecount enable="1" value="38"/>
+      <buildcount enable="1" value="38"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

@@ -29,6 +29,8 @@ Module LLCM
     #LLCM_TYPE_STR
     #LLCM_TYPE_NAM
     
+    #LLCM_TYPE_INT
+    
     #LLCM_TYPE_I64
     #LLCM_TYPE_I32
     #LLCM_TYPE_I16
@@ -43,8 +45,8 @@ Module LLCM
     #LLCM_TYPE_PTR
   EndEnumeration
   
-  #LLCM_REGEX_INTEGER = "^[+-]*\d+$"
-  #LLCM_REGEX_FLOAT = "^[+-]*\d*\.\d*$"
+  #LLCM_REGEX_INTEGER = "^[+-]*\d+$" ;Only numbers and an optional +- at the beginning.
+  #LLCM_REGEX_FLOAT = "^[+-]*\d*\.\d*$" ;Only optional numbers and an optional +- at the beginning, seperated by a single . .
   #LLCM_REGEX_HEXADECIMAL = "^0[xXhH][\da-fA-F]*$"
   #LLCM_REGEX_BINARY = "^0[bB][01]*$"
   
@@ -241,9 +243,11 @@ Module LLCM
           *CurrentToken\Children()\Start = Index
           While Index < Finish
             Index + 1
+            Column + 1
             Select PeekC(@String + (Index * SizeOf(Character)))
               Case Asc(" "), 9, 13, 10, Asc("("), Asc(")"), Asc("["), Asc("]"), Asc(";"), 34, Asc("'"), Asc(",")
                 Index - 1
+                Column - 1
                 *CurrentToken\Children()\Stop = Index
                 Break
             EndSelect
@@ -260,7 +264,19 @@ Module LLCM
     Wend
     
     If ListSize(*TokenAddressStack())
-      ProcedureReturn Error("Unclosed opening parenthesis '('.", Index, Line, Column)
+      Index = 0
+      Line = 1
+      Column = 1
+      While Index < *CurrentToken\Start
+        Select PeekC(@String + (Index * SizeOf(Character)))
+          Case 10
+            Column = 0
+            Line + 1
+        EndSelect
+        Index + 1
+        Column + 1
+      Wend
+      ProcedureReturn Error("Unclosed opening parenthesis '('.", *CurrentToken\Start + 1, Line, Column)
     EndIf
     
     ResetList(*CurrentToken\Children())
@@ -277,7 +293,7 @@ Module LLCM
             CopyMemory(@String + (*CurrentToken\Start + 1 ) * SizeOf(Character), *CurrentToken\Data, (*CurrentToken\Stop - *CurrentToken\Start) * SizeOf(Character))
           Case Asc("0") To Asc("9"), Asc("+"), Asc("-"), Asc(".") ;Numbers, plus, minus, and decimal
             If RegExFastMatch(#LLCM_REGEX_INTEGER, PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1))
-              If Bool(Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)) & $FFFFFFFF <> Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)))
+              If #PB_Compiler_64Bit Or Bool(Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)) & $FFFFFFFF <> Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)))
                 *CurrentToken\Type | #LLCM_TYPE_I64
                 *CurrentToken\Data = AllocateMemory(SizeOf(Quad))
                 PokeQ(*CurrentToken\Data, Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)))
@@ -287,7 +303,7 @@ Module LLCM
                 PokeL(*CurrentToken\Data, Val(PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1)))
               EndIf
             ElseIf RegExFastMatch(#LLCM_REGEX_HEXADECIMAL, PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1))
-              If *CurrentToken\Stop - *CurrentToken\Start - 1 > 8
+              If #PB_Compiler_64Bit Or *CurrentToken\Stop - *CurrentToken\Start - 1 > 8
                 *CurrentToken\Type | #LLCM_TYPE_I64
                 *CurrentToken\Data = AllocateMemory(SizeOf(Quad))
                 PokeQ(*CurrentToken\Data, Val("$" + PeekS(@String + ((*CurrentToken\Start + 2)* SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start - 1)))
@@ -298,7 +314,7 @@ Module LLCM
                 PokeL(*CurrentToken\Data, Val("$" + PeekS(@String + ((*CurrentToken\Start + 2)* SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start - 1)))
               EndIf
             ElseIf RegExFastMatch(#LLCM_REGEX_BINARY, PeekS(@String + (*CurrentToken\Start * SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start + 1))
-              If *CurrentToken\Stop - *CurrentToken\Start - 1 > 32
+              If #PB_Compiler_64Bit Or *CurrentToken\Stop - *CurrentToken\Start - 1 > 32
                 *CurrentToken\Type | #LLCM_TYPE_I64
                 *CurrentToken\Data = AllocateMemory(SizeOf(Quad))
                 PokeQ(*CurrentToken\Data, Val("%" + PeekS(@String + ((*CurrentToken\Start + 2)* SizeOf(Character)), *CurrentToken\Stop - *CurrentToken\Start - 1)))
