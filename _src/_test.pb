@@ -5,7 +5,7 @@ XIncludeFile "include\consoleutil.pbi"
 
 Procedure UnitTestSuccess(Name.s, Query.s, Expected.s)
   Protected Response.s
-  Response = LLCM::Compile(Query)
+  Response = LLCM::Evaluate(Query)
   
   If Response <> Expected
     Debug "Unit Test Failed: "+Name
@@ -40,8 +40,8 @@ EndProcedure
 OpenConsole()
 
 Define String.s
-String = LLCM::Compile(EntireFileContent(".\_exclude\pnbpaddlesandball.pnb"))
-;String = LLCM::Compile("Hello.")
+String = LLCM::Evaluate(EntireFileContent("./_exclude/pnbpaddlesandball.pnb"))
+;String = LLCM::Evaluate("Hello.)")
 If PeekS(@String, 14) = "Compiler Error"
   WriteError(String)
 Else

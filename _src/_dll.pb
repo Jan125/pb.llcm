@@ -12,24 +12,24 @@ CompilerIf #PB_Compiler_ExecutableFormat = #PB_Compiler_DLL And #PB_Compiler_Thr
   EndProcedure
 CompilerEndIf
 
-ProcedureDLL.s Compile(String.s)
+ProcedureDLL.s Evaluate(String.s)
   CompilerIf #PB_Compiler_ExecutableFormat = #PB_Compiler_DLL
     Global ReturnString.s
   CompilerElse
     Protected ReturnString.s
   CompilerEndIf
-  ReturnString = LLCM::Compile(String)
+  ReturnString = LLCM::Evaluate(String)
   ProcedureReturn ReturnString
   
 EndProcedure
 
-ProcedureCDLL.s _Compile(String.s)
+ProcedureCDLL.s _Evaluate(String.s)
   CompilerIf #PB_Compiler_ExecutableFormat = #PB_Compiler_DLL
     Global ReturnString.s
   CompilerElse
     Protected ReturnString.s
   CompilerEndIf
-  ReturnString = LLCM::Compile(String)
+  ReturnString = LLCM::Evaluate(String)
   ProcedureReturn ReturnString
   
 EndProcedure

@@ -33,7 +33,7 @@ If Not Library
 EndIf
 
 String = "(Function (Exit) Do (Invoke None " + Str(@Exit()) + "))"
-CallFunction(Library, "Compile", @String)
+CallFunction(Library, "Evaluate", @String)
 
 If CountProgramParameters()
   For i = 0 To CountProgramParameters() - 1
@@ -48,14 +48,14 @@ If Len(InString)
   If FileSize(InString) >= 0
     File = ReadFile(#PB_Any, InString)
     String = ReadString(File, #PB_File_IgnoreEOL)
-    String = PeekS(CallFunction(Library, "Compile", @String))
+    String = PeekS(CallFunction(Library, "Evaluate", @String))
     If Len(String)
       PrintN(String)
     EndIf
     CloseFile(File)
     End
   Else
-    String = PeekS(CallFunction(Library, "Compile", @InString))
+    String = PeekS(CallFunction(Library, "Evaluate", @InString))
     If Len(String)
       PrintN(String)
     EndIf
@@ -65,7 +65,7 @@ Else
   Repeat
     Print(">")
     String = Input()
-    String = PeekS(CallFunction(Library, "Compile", @String))
+    String = PeekS(CallFunction(Library, "Evaluate", @String))
     If Len(String)
       PrintN(String)
     EndIf
